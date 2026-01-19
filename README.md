@@ -12,4 +12,10 @@
     prompts:
       你的职责是从复杂内容中提炼重点。你应当优先保证准确，而不是内容丰富。请总结下面的内容：用简单的话说明整体在讲什么。提炼 3～5 条最重要的信息。不加入原文没有的内容。使用条目形式输出。
     response:
+    **Summary: The Last Light in Maple Street**
+
+      - Every evening at 7:13 p.m., a single streetlight always turned on ahead of the others on Maple Street.
+      - Mrs. Carter and Noah, curious about this unusual event, investigated and discovered a hidden metal box behind the light, belonging to Mrs. Carter’s late husband, Edward, who had installed it as a special signal for her.
+      - The light had become a meaningful way for Edward to show that she was safe even after his death, helping Mrs. Carter not feel alone at night.
+      - The city tried to fix the light but ultimately decided to leave it on as a token of remembrance and to give Mrs. Carter peace of mind.
     
