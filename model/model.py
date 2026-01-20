@@ -2,7 +2,7 @@ from openai import OpenAI
 
 client = OpenAI(
   base_url="https://openrouter.ai/api/v1",
-  api_key="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",
+  api_key="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",
 )
 
 
@@ -12,4 +12,4 @@ def model(messages):
     model="allenai/molmo-2-8b:free",
     messages=messages
   )
-  print(completion.choices[0].message.content)
+  return completion.choices[0].message.content

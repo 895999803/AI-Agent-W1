@@ -1,5 +1,3 @@
-story = f"""
-
 The Last Light in Maple Street
 
 Every evening at exactly 7:13 p.m., a single streetlight on Maple Street turned on before all the others.
@@ -81,42 +79,3 @@ That evening, at 7:13 p.m., the light turned on.
 Mrs. Carter smiled.
 
 And for the first time in years, she didn’t feel like she was waiting anymore.
-"""
-
-import prompts.system_prompts as sp
-import prompts.user_prompts as up
-import model.model as m
-
-
-def get_prompts():
-    duty = ""
-    for key in sp.summarize_system_prompts["duty"]:
-        duty += sp.summarize_system_prompts["duty"][key]
-    user_prompts = up.summarize_user_prompts["task"]
-    for key in up.summarize_user_prompts["constraints"]:
-        user_prompts += up.summarize_user_prompts["constraints"][key]
-    user_prompts += up.summarize_user_prompts["output"]
-    prompts = duty+user_prompts
-    print(prompts)
-    return prompts
-
-
-if __name__ == '__main__':
-
-    messages=[
-        {
-            "role": "user",
-            "content": [
-                {
-                    "type": "text",
-                    "text": get_prompts()
-                },
-                {
-                    "type": "text",
-                    "text": story
-                }
-            ]
-        }
-    ]
-
-    m.model(messages)
