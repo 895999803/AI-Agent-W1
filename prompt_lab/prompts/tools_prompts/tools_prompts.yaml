@@ -1,0 +1,7 @@
+web_search:
+  name: web search
+  description: 当需要访问一个网页的内容时，可以使用该工具获取该网页的全部内容。
+  parameters: url (网页的地址)。
+
+
+
