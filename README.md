@@ -25,4 +25,10 @@
       Carter’s late husband, Edward, who had installed it as a special signal for her.
       - The light had become a meaningful way for Edward to show that she was safe even after his death, helping Mrs. Carter not feel alone at night.
       - The city tried to fix the light but ultimately decided to leave it on as a token of remembrance and to give Mrs. Carter peace of mind.
+
+# 运行指令:
+    summary -- python .\test_prompt_lab.py summary .\data\story.txt
+    summary-compare -- python .\test_prompt_lab.py summary other_prompt .\data\story.txt
+    
+    
     
