@@ -4,6 +4,9 @@ import requests
 import arxiv
 from arxiv import Search
 from bs4 import BeautifulSoup
+import requests
+import fitz  # PyMuPDF
+import io
 
 
 def get_web_content(url):
@@ -13,11 +16,23 @@ def get_web_content(url):
 
     title = soup.title.text if soup.title else "No title"
     text = soup.get_text(separator=" ",strip=True)
-
     return {
         "title": title,
         "text": text
     }
+
+
+def get_arxiv_paper(url):
+    paper_url = url + ".pdf"
+    response = requests.get(paper_url)
+    response.raise_for_status()
+
+    pdf_stream = io.BytesIO(response.content)
+    doc = fitz.open(stream=pdf_stream, filetype="pdf")
+    text = ""
+    for page in doc:
+        text += page.get_text()
+    return text
 
 
 def get_arxiv_content(keyword, paper_number=5, tostring=True):
@@ -32,11 +47,11 @@ def get_arxiv_content(keyword, paper_number=5, tostring=True):
     if tostring:
         papers = ""
         for paper in results:
-            papers += "Title: " + str(paper.title) + "\n" +\
-                           "Summary: " + str(paper.summary) + "\n" +\
-                           "Published: " + str(paper.published) + "\n" +\
-                           "Authors: " + str(paper.authors) + "\n" +\
-                           "Url: " + paper.pdf_url + "\n"
+            papers += "Title: " + str(paper.title) + "\n" + \
+                      "Authors: " + str(paper.authors) + "\n" + \
+                      "Published: " + str(paper.published) + "\n" +\
+                      "Url: " + paper.pdf_url + "\n"  # + \
+                      # "Summary: " + str(paper.summary) + "\n"
         return papers
     else:
         papers = []
@@ -50,4 +65,5 @@ def get_arxiv_content(keyword, paper_number=5, tostring=True):
 
 
 if __name__ == "__main__":
-    get_arxiv_content("machine learning")
+    # get_arxiv_content("machine learning")
+    print(get_arxiv_paper("https://arxiv.org/pdf/2306.04338v1"))

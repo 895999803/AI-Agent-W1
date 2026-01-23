@@ -1,11 +1,11 @@
 import model.model as m
 import prompt_lab.analysis_prompt as ap
-import tools as t
+import tools.tools as t
 import json
 
 
 def web_search_calling(web_url):
-    content = t.get_arxiv_content(web_url)["text"]
+    content = t.get_web_content(web_url)["text"]
     prompts = ap.get_prompt("summary")[0]
     messages = [
         {
@@ -27,10 +27,8 @@ def web_search_calling(web_url):
 
 
 def arxiv_search_calling(keyword, paper_number):
-    content = t.get_arxiv_content(keyword, paper_number)
+    content = t.get_arxiv_content(keyword, paper_number, tostring=True)
     prompts = ap.get_prompt("summary", user_prompt_name="prompt_arxiv", require_tool=False)[0]
-    # print(content)
-    # print(prompts)
     messages = [
         {
             "role": "user",
@@ -51,11 +49,35 @@ def arxiv_search_calling(keyword, paper_number):
     return response
 
 
-def test_tool_calling():
+def arxiv_paper_calling(url):
+    content = t.get_arxiv_paper(url)
+    prompts = ap.get_prompt("summary", user_prompt_name="prompt_arxiv_paper", require_tool=False)[0]
+    messages = [
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "text",
+                    "text": prompts
+                },
+                {
+                    "type": "text",
+                    "text": content
+                }
+            ]
+        }
+    ]
+    response = m.model(messages)
+    # print(response)
+    return response
+
+
+def tool_calling(query):
 
     prompts = ap.get_prompt("summary")[0]
     # prompts = prompts.replace("请总结下面的内容", "帮我总结一下这个网页的内容：https://cloud.tencent.com/developer/article/2124888")
-    prompts = prompts.replace("请总结下面的内容", "帮我推荐几篇和机器学习相关的论文")
+    # prompts = prompts.replace("请总结下面的内容", "帮我推荐几篇和机器学习相关的论文")
+    prompts = prompts.replace("请总结下面的内容", query)
     tools_prompts = ap.get_tools_prompts()
     prompts += tools_prompts
     messages = [
@@ -71,6 +93,7 @@ def test_tool_calling():
     ]
     response = m.model(messages)
     if "I need use tools" in response:
+        print(response)
         data = json.loads(response)
         if "yes" in data["I need use tools"]:
             if data["tool"] == "web search":
@@ -81,5 +104,7 @@ def test_tool_calling():
 
 
 if __name__ == '__main__':
-    r = test_tool_calling()
+    r = tool_calling("帮我推荐几篇和机器学习相关的论文")
     print(r)
+
+

@@ -1,10 +1,10 @@
 web search:
-  name: web search
+  name: "web search"
   description: 当需要访问一个网页的内容时，可以使用该工具获取该网页的全部内容。
   parameters: url (网页的地址)。
 
 arxiv search:
-  name: arxiv search
+  name: "arxiv search"
   description: 当需要查找专业论文内容时，可以使用该工具获取相关论文的具体内容。
   parameters: keyword (论文的主题或关键词), number (默认值是5)
 
