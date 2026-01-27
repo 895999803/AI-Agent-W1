@@ -50,7 +50,7 @@ def get_arxiv_content(keyword, paper_number=5, tostring=True):
             papers += "Title: " + str(paper.title) + "\n" + \
                       "Authors: " + str(paper.authors) + "\n" + \
                       "Published: " + str(paper.published) + "\n" +\
-                      "Url: " + paper.pdf_url + "\n"  # + \
+                      "Url: " + paper.pdf_url + "\n" # + \
                       # "Summary: " + str(paper.summary) + "\n"
         return papers
     else:
