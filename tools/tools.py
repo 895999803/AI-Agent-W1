@@ -47,11 +47,11 @@ def get_arxiv_content(keyword, paper_number=5, tostring=True):
     if tostring:
         papers = ""
         for paper in results:
-            papers += "Title: " + str(paper.title) + "\n" + \
-                      "Authors: " + str(paper.authors) + "\n" + \
-                      "Published: " + str(paper.published) + "\n" +\
-                      "Url: " + paper.pdf_url + "\n" # + \
-                      # "Summary: " + str(paper.summary) + "\n"
+            papers += "title: " + str(paper.title) + "\n" + \
+                      "authors: " + str(paper.authors) + "\n" + \
+                      "published: " + str(paper.published) + "\n" +\
+                      "url: " + paper.pdf_url + "\n" # + \
+                      # "summary: " + str(paper.summary) + "\n"
         return papers
     else:
         papers = []

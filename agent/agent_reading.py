@@ -12,9 +12,11 @@ import tools.tools as t
 
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s"
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    filename='agent_reading.log',
+    filemode='a',
+    encoding='utf-8'
 )
-
 
 class State:
     INIT = "INIT"
@@ -26,16 +28,23 @@ class State:
 
 
 class Agent_Reading:
-    def __init__(self, paper_url):
+    def __init__(self, parameters):
         self.state = State.INIT
         self.context = {
-            "paper_url": paper_url,
+            "paper_url": parameters["paper_url"],
             "prompt": None,
             "paper_content": None,
             "model_response": None,
             "retry": 0
         }
         self.max_retry = 3
+
+    def get_result(self):
+        return {
+            "state": self.state,
+            "summary": self.context.get("model_response"),
+            "retry": self.context.get("retry")
+        }
 
     def log(self, msg):
         logging.info(f"[{self.state}] {msg}")
@@ -55,10 +64,7 @@ class Agent_Reading:
                 self.handle_failure(e)
 
         self.log("Agent finished")
-        if self.state == State.DONE:
-            return self.context["model_response"]
 
-        return None
     # -------- 每个状态一步 --------
 
     def step_init(self):
@@ -116,8 +122,7 @@ class Agent_Reading:
 
 if __name__ == '__main__':
 
-    agent = Agent_Reading("https://arxiv.org/pdf/2306.04338v1")
-    response = agent.run()
-    if response is not None:
-        print(response)
+    agent = Agent_Reading({"paper_url": "https://arxiv.org/pdf/2306.04338v1"})
+    agent.run()
+
 
