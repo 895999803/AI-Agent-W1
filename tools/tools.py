@@ -50,8 +50,9 @@ def get_arxiv_content(keyword, paper_number=5, tostring=True):
             papers += "title: " + str(paper.title) + "\n" + \
                       "authors: " + str(paper.authors) + "\n" + \
                       "published: " + str(paper.published) + "\n" +\
-                      "url: " + paper.pdf_url + "\n" # + \
-                      # "summary: " + str(paper.summary) + "\n"
+                      "url: " + paper.pdf_url + "\n" + \
+                      "category:" + paper.primary_category + "\n" # + \
+                      # "abstract: " + str(paper.summary) + "\n"
         return papers
     else:
         papers = []
@@ -60,7 +61,9 @@ def get_arxiv_content(keyword, paper_number=5, tostring=True):
                            "summary": paper.summary,
                            "published": paper.published,
                            "authors": paper.authors,
-                           "url": paper.pdf_url})
+                           "url": paper.pdf_url,
+                           "category": paper.primary_category,
+                           "abstract": paper.summary})
         return papers
 
 

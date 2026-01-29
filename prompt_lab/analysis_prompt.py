@@ -25,7 +25,7 @@ def get_system_prompt(prompt_type, prompt_name="prompt", require_tool=True):
         prompt_path = project_root / "prompts" / "system_prompts" / "tools_system_prompts.yaml"
         with open(prompt_path, 'r', encoding="utf-8") as file:
             yaml_data = yaml.safe_load(file)
-            system_prompt += yaml_data.get("prompt")
+            system_prompt += yaml_data.get(prompt_name)
 
     return system_prompt
 
@@ -67,5 +67,17 @@ def get_tools_prompts():
                              + "工具描述：" + yaml_data[tool]["description"] \
                              + "工具参数：" + yaml_data[tool]["parameters"] + "\n"
     return tools_prompts
+
+
+def get_score_prompts(prompt_type, prompt_name="prompt"):
+
+    project_root = Path(__file__).parent
+    file_name = prompt_type + "_score_prompts.yaml"
+    prompt_path = project_root / "prompts" / "score_prompts" / file_name
+    with open(prompt_path, 'r', encoding="utf-8") as file:
+        yaml_data = yaml.safe_load(file)
+        score_prompts = yaml_data.get(prompt_name)
+    return score_prompts
+
 
 

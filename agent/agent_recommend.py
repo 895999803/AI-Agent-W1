@@ -30,7 +30,7 @@ class State:
     FAILED = "FAILED"
 
 
-class Agent_Recommend:
+class AgentRecommend:
     def __init__(self, parameters):
         self.state = State.INIT
         self.context = {
@@ -49,7 +49,8 @@ class Agent_Recommend:
         return {
             "state": self.state,
             "summary": self.context.get("model_response"),
-            "retry": self.context.get("retry")
+            "retry": self.context.get("retry"),
+            "prompt": self.context.get("prompt")
         }
 
     def log(self, msg):
@@ -146,7 +147,7 @@ class Agent_Recommend:
             }
         ]
         response = m.model(messages)
-        data = json.loads(response)
+        # data = json.loads(response)
         self.log(f"Model response: {response}")
         '''
         for i in range(len(data)):
@@ -155,7 +156,7 @@ class Agent_Recommend:
                 authors += author + "\n"
             data[i]['authors'] = authors
         '''
-        self.context["model_response"] = data
+        self.context["model_response"] = response
         self.state = State.DONE
 
     # -------- 失败恢复 --------

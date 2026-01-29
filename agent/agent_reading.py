@@ -18,6 +18,7 @@ logging.basicConfig(
     encoding='utf-8'
 )
 
+
 class State:
     INIT = "INIT"
     SEARCH = "SEARCH"
@@ -27,7 +28,7 @@ class State:
     FAILED = "FAILED"
 
 
-class Agent_Reading:
+class AgentReading:
     def __init__(self, parameters):
         self.state = State.INIT
         self.context = {
@@ -43,7 +44,8 @@ class Agent_Reading:
         return {
             "state": self.state,
             "summary": self.context.get("model_response"),
-            "retry": self.context.get("retry")
+            "retry": self.context.get("retry"),
+            "prompt": self.context.get("prompt")
         }
 
     def log(self, msg):

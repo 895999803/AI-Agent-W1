@@ -15,7 +15,7 @@ evaluation_recommend_set = [
 
 evaluation_reading_set = [
     {
-        "case_id": "paper_recommend_01",
+        "case_id": "paper_reading_01",
         "input": {
             "paper_url": "https://arxiv.org/pdf/2306.04338v1",
         },
